@@ -15,13 +15,15 @@ p2_scores = {
         "X": 1 + 6,
         "Y": 2 + 0,
         "Z": 3 + 3,
-    }
+    },
 }
 
 
 def score_from_strategy(filepath):
     total = 0
-    for p1_move, p2_move in map(lambda move: move.strip().split(" "), open(filepath, "r").readlines()):
+    for p1_move, p2_move in map(
+        lambda move: move.strip().split(" "), open(filepath, "r").readlines()
+    ):
         total += p2_scores[p1_move][p2_move]
     return total
 
