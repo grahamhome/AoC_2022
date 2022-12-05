@@ -6,7 +6,7 @@ import regex as re
 def get_stacks(lines):
     lines, crate_names = lines[:-1], lines[-1].strip()
     crate_indices = [crate_names.index(name) + 1 for name in crate_names if name != " "]
-    last_index = int(crate_names.split("   ")[-1].strip())
+    last_index = int(crate_names.split("   ")[-1])
     stacks = [[] for _ in range(last_index)]
     for line in lines:
         crate_contents = [line[index] for index in crate_indices]
