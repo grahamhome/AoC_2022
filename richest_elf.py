@@ -13,4 +13,5 @@ def richest_elf(filepath):
     return max(max_cals, current)
 
 
-print(richest_elf(sys.argv[1]))
+if __name__ == "__main__":
+    print(richest_elf(sys.argv[1]))
