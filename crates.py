@@ -18,16 +18,19 @@ def get_stacks(lines):
 
 def apply_moves(moves, stacks, preserve_order=False):
     for move in moves:
-        count, from_stack, to_stack = re.search(
-            "move[[:space:]]([[:digit:]]+)[[:space:]]from[[:space:]]([[:digit:]]+)[[:space:]]to[[:space:]]([[:digit:]]+)\n",
-            move,
-        ).groups()
+        count, from_stack, to_stack = map(
+            int,
+            re.search(
+                "move[[:space:]]([[:digit:]]+)[[:space:]]from[[:space:]]([[:digit:]]+)[[:space:]]to[[:space:]]([[:digit:]]+)\n",
+                move,
+            ).groups(),
+        )
         if preserve_order:
-            stacks[int(to_stack) - 1] += stacks[int(from_stack) - 1][-int(count) :]
-            stacks[int(from_stack) - 1] = stacks[int(from_stack) - 1][: -int(count)]
+            stacks[to_stack - 1] += stacks[from_stack - 1][-count:]
+            stacks[from_stack - 1] = stacks[from_stack - 1][:-count]
         else:
-            for _ in range(int(count)):
-                stacks[int(to_stack) - 1].append(stacks[int(from_stack) - 1].pop())
+            for _ in range(count):
+                stacks[to_stack - 1].append(stacks[from_stack - 1].pop())
     return stacks
 
 
