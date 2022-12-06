@@ -26,4 +26,5 @@ def richest_elves(filepath):
     return sum(richest_elves.items)
 
 
-print(richest_elves(sys.argv[1]))
+if __name__ == "__main__":
+    print(richest_elves(sys.argv[1]))
