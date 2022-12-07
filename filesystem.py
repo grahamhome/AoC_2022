@@ -82,5 +82,22 @@ def small_directories_sum(input_file_path):
     )
 
 
+disk_size = 70000000
+required_size = 30000000
+
+
+def smallest_dir_to_delete(input_file_path):
+    dir_sizes = all_dir_sizes(
+        filesystem([line.strip() for line in open(input_file_path, "r").readlines()])
+    )
+    free_space = disk_size - max(dir_sizes)
+    space_to_free = required_size - free_space
+    print(space_to_free)
+    for dir_size in sorted(dir_sizes):
+        if dir_size >= space_to_free:
+            return dir_size
+
+
 if __name__ == "__main__":
-    print(f"{small_directories_sum(sys.argv[1])}")
+    print(smallest_dir_to_delete(sys.argv[1]))
+    # print(f"{small_directories_sum(sys.argv[1])}")
