@@ -1,37 +1,46 @@
+import sys
+
+import regex as re
+
+cd_pattern = r"^\$ cd (\S+)$"
+ls_pattern = r"^\$ ls$"
+file_pattern = r"^(\d+) (\S+)$"
+dir_pattern = r"^dir (\S+)$"
+
+
 def filesystem(command_history):
     """
     Returns a dict representing the filesystem indicated by the given command history.
     """
-    cd_pattern = r"^\$ cd (\S+)$"
-    ls_pattern = r"^\$ ls$"
-    file_pattern = r"^(\d+) (\S+)$"
-    dir_pattern = r"^dir (\S+)$"
-    current_path = []
-    filesystem = {
-        "/": {}
-    }  # TODO derive name from initial CD command (use CD match regex)
-    index = 0
-    # while index < len(current_path)
-    # Command history only visits dirs after they are discovered, so no need for defaultdict.
-    # Ignore the initial command for now, just create / directory
-    # Check command_history[index] for LS or CD (regex match)
-    # LS:
-    # # Get dict representing current level of fs
-    # - for dir in path:
-    #       curr_dir = filesystem[dir]  <-- Is this where I would use a mutable borrow in Rust?
-    # # get paths from LS
-    #   new_paths = []
-    #   index += 1
-    #   while not command_history[index].startswith("$") and len(command_history[index:] > 0)
-    #   new_paths.append(command_history[index])
-    # # Add new paths to internal representation
-    # for path in new_paths:
-    #     if path matches file regex:
-    #         add file as name: size to current directory
-    #     elif path matches dir regex:
-    #         add dir as name: {} to current directory
-    # CD: Add dirname to current_path if not ..
-    #     if .. then pop dirname from current_path
+    pwd = []
+    fs = {"/": {}}
+
+    while command_history:
+        command, history = command_history[0], command_history[1:]
+        if cd_match := re.search(cd_pattern, command):
+            dirname = cd_match.groups()[0]
+            if dirname != "..":
+                pwd.append(dirname)
+            else:
+                pwd.pop()
+            command_history = history
+        elif re.search(ls_pattern, command):
+            index = 0
+            curr_dir = fs
+            for dir in pwd:
+                curr_dir = curr_dir[dir]
+            while index < len(history):
+                if re.search(cd_pattern, history[index]) or re.search(
+                    ls_pattern, history[index]
+                ):
+                    break
+                if file_match := re.search(file_pattern, history[index]):
+                    curr_dir[file_match.groups()[1]] = int(file_match.groups()[0])
+                elif dir_match := re.search(dir_pattern, history[index]):
+                    curr_dir[dir_match.groups()[0]] = {}
+                index += 1
+            command_history = history[index:]
+    return fs
 
 
 def size_at_path(filesystem):
@@ -63,11 +72,15 @@ def all_dir_sizes(filesystem):
 def small_directories_sum(input_file_path):
     return sum(
         filter(
-            lambda size: size <= 10_000,
+            lambda size: size <= 100_000,
             all_dir_sizes(
                 filesystem(
-                    line.strip() for line in open(input_file_path, "r").readlines()
+                    [line.strip() for line in open(input_file_path, "r").readlines()]
                 )
             ),
         )
     )
+
+
+if __name__ == "__main__":
+    print(f"{small_directories_sum(sys.argv[1])}")

@@ -6,27 +6,27 @@ from filesystem import *
 @pytest.mark.parametrize(
     "commands,expected_filesystem",
     [
-        (["cd /", "ls"], {}),
-        (["cd /", "ls", "123 some_file.txt"], {"some_file.txt": 123}),
-        (
-            ["cd /", "ls", "dir abc", "cd abc", "ls", "123 some_file.txt"],
-            {"abc": {"some_file.txt": 123}},
-        ),
+        # (["$ cd /", "$ ls"], {"/": {}}),
+        # (["$ cd /", "$ ls", "123 some_file.txt"], {"/": {"some_file.txt": 123}}),
+        # (
+        #     ["$ cd /", "$ ls", "dir abc", "$ cd abc", "$ ls", "123 some_file.txt"],
+        #     {"/": {"abc": {"some_file.txt": 123}}},
+        # ),
         (
             [
-                "cd /",
-                "ls",
+                "$ cd /",
+                "$ ls",
                 "dir abc",
                 "dir def",
-                "cd abc",
-                "ls",
+                "$ cd abc",
+                "$ ls",
                 "123 some_file.txt",
-                "cd ..",
-                "cd def",
-                "ls",
+                "$ cd ..",
+                "$ cd def",
+                "$ ls",
                 "456 other_file.txt",
             ],
-            {"abc": {"some_file.txt": 123}, "def": {"other_file.txt": 456}},
+            {"/": {"abc": {"some_file.txt": 123}, "def": {"other_file.txt": 456}}},
         ),
     ],
 )
