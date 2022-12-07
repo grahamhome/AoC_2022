@@ -13,7 +13,7 @@ def filesystem(command_history):
     Returns a dict representing the filesystem indicated by the given command history.
     """
     pwd = []
-    fs = {"/": {}}
+    fs: dict[str, dict | int] = {"/": {}}
 
     while command_history:
         command, history = command_history[0], command_history[1:]
