@@ -92,7 +92,6 @@ def smallest_dir_to_delete(input_file_path):
     )
     free_space = disk_size - max(dir_sizes)
     space_to_free = required_size - free_space
-    print(space_to_free)
     for dir_size in sorted(dir_sizes):
         if dir_size >= space_to_free:
             return dir_size
