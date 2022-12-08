@@ -28,4 +28,5 @@ def score_from_strategy(filepath):
     return total
 
 
-print(score_from_strategy(sys.argv[1]))
+if __name__ == "__main__":
+    print(score_from_strategy(sys.argv[1]))

@@ -38,13 +38,13 @@ def get_stack_tops(stacks):
     return "".join(stack.pop() for stack in stacks)
 
 
-def move_stacks(filepath):
+def move_stacks(filepath, preserve_order):
     stack_data = open(filepath, "r").readlines()
     stacks = get_stacks(stack_data[: stack_data.index("\n")])
     moves = stack_data[stack_data.index("\n") + 1 :]
-    stacks = apply_moves(moves, stacks, preserve_order=True)
+    stacks = apply_moves(moves, stacks, preserve_order=preserve_order)
     return get_stack_tops(stacks)
 
 
 if __name__ == "__main__":
-    print(move_stacks(sys.argv[1]))
+    print(move_stacks(sys.argv[1], bool(sys.argv[2])))
