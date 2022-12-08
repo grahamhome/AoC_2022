@@ -1,14 +1,14 @@
 import answers
-from crates import move_stacks
-from filesystem import small_directories_sum, smallest_dir_to_delete
-from find_marker import find_marker_index
-from overlap import total_overlap_count, partial_overlap_count
-from richest_elf import richest_elf
-from rps import score_from_strategy
-from rps_2 import score_from_strategy as score_from_strategy_2
-from rucksack import odd_item_sum
-from rucksack_badge import badges_sum
-from three_rich_elves import richest_elves
+from solutions.dec_05.crates import move_stacks
+from solutions.dec_07.filesystem import small_directories_sum, smallest_dir_to_delete
+from solutions.dec_06.find_marker import find_marker_index
+from solutions.dec_04.overlap import total_overlap_count, partial_overlap_count
+from solutions.dec_01.richest_elf import richest_elf
+from solutions.dec_02.rps import score_from_strategy
+from solutions.dec_02.rps_2 import score_from_strategy as score_from_strategy_2
+from solutions.dec_03.rucksack import odd_item_sum
+from solutions.dec_03.rucksack_badge import badges_sum
+from solutions.dec_01.three_rich_elves import richest_elves
 
 
 def check_answers():
