@@ -11,6 +11,7 @@ from solutions.dec_03.rucksack_badge import badges_sum
 from solutions.dec_01.three_rich_elves import richest_elves
 from solutions.dec_08.best_view import best_view
 from solutions.dec_08.height_checker import count_visible_trees, get_forest
+from solutions.dec_09.rope_tricks import count_unique_positions
 
 
 def check_answers():
@@ -73,6 +74,13 @@ def check_answers():
     print(
         f"Part II: {'Correct' if best_view(get_forest('data/forest.txt')) == answers.h_b else 'Incorrect'}"
     )
+    print("Dec 9:")
+    print(
+        f"Part I: {'Correct' if count_unique_positions('data/rope.txt') == answers.i_a else 'Incorrect'}"
+    )
+    # print(
+    #     f"Part II: {'Correct' if None == answers.i_b else 'Incorrect'}"
+    # )
 
 
 if __name__ == "__main__":
