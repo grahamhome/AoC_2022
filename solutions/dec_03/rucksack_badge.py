@@ -1,6 +1,6 @@
 import sys
 
-from rucksack import item_priority
+from solutions.dec_03.rucksack import item_priority
 
 
 def badge(rucksacks):
