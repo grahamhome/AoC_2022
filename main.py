@@ -9,6 +9,8 @@ from solutions.dec_02.rps_2 import score_from_strategy as score_from_strategy_2
 from solutions.dec_03.rucksack import odd_item_sum
 from solutions.dec_03.rucksack_badge import badges_sum
 from solutions.dec_01.three_rich_elves import richest_elves
+from solutions.dec_08.best_view import best_view
+from solutions.dec_08.height_checker import count_visible_trees, get_forest
 
 
 def check_answers():
@@ -63,6 +65,13 @@ def check_answers():
     )
     print(
         f"Part II: {'Correct' if smallest_dir_to_delete('data/console_log.txt') == answers.g_b else 'Incorrect'}"
+    )
+    print("Dec 8:")
+    print(
+        f"Part I: {'Correct' if count_visible_trees(get_forest('data/forest.txt')) == answers.h_a else 'Incorrect'}"
+    )
+    print(
+        f"Part II: {'Correct' if best_view(get_forest('data/forest.txt')) == answers.h_b else 'Incorrect'}"
     )
 
 
